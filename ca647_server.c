@@ -57,7 +57,7 @@ read_command(int s)
     }
 
     /* Otherwise construct new prompt */
-    snprintf(buffer, BLENGTH, response);
+    snprintf(buffer, BLENGTH, response); /* format string vulnerability */
     strncat(buffer, e, BLENGTH);
     strncat(buffer, p, BLENGTH);
   }
@@ -98,7 +98,7 @@ execute_command(int s, unsigned int x, char *answer)
   recv(s, (void *)buffer, BLENGTH, 0);
 
   /* Make copy */
-  strcpy(answer, buffer);
+  strcpy(answer, buffer); /* stack based buffer overflow vulnerability (can only received 40 bytes before modifyig return addr) */
 }
 
 static void

