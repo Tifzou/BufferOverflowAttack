@@ -7,7 +7,6 @@ In another one:
 1
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa123456789abcedfhijklmnop
 
-
 You will se that in gdb :
 
 (gdb) run

