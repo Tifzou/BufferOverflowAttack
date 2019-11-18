@@ -12,8 +12,8 @@
 #include <time.h>
 
 #define	PORTNUM	8001
-#define	BLENGTH	128
-#define	ALENGTH	32
+#define	BLENGTH	256
+#define	ALENGTH	128
 
 static int
 read_command(int s)
