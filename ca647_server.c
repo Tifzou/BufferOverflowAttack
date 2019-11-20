@@ -27,8 +27,8 @@ read_command(int s)
   response = (char *)malloc(BLENGTH);
   buffer = (char *)malloc(BLENGTH);
   
+  printf("Address of response %p\n", (void *)&response);
   
-  printf("Address de response %p\n", (void *)&response);
   if (!(buffer && response)) {
     perror("malloc()");
     exit(EXIT_FAILURE);
@@ -100,7 +100,7 @@ execute_command(int s, unsigned int x, char *answer)
   recv(s, (void *)buffer, BLENGTH, 0);
 
   /* Make copy */
-  strcpy(answer, buffer); /* stack based buffer overflow vulnerability (can only received 40 bytes before modifyig return addr) */
+  strcpy(answer, buffer); /* stack based buffer overflow vulnerability (can only received 40 bytes before that the return addr is changed ) */
 }
 
 static void
