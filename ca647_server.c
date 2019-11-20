@@ -24,9 +24,11 @@ read_command(int s)
   int x;
 
   /* Allocate buffers */
-  buffer = (char *)malloc(BLENGTH);
   response = (char *)malloc(BLENGTH);
-
+  buffer = (char *)malloc(BLENGTH);
+  
+  
+  printf("Address de response %p\n", (void *)&response);
   if (!(buffer && response)) {
     perror("malloc()");
     exit(EXIT_FAILURE);
